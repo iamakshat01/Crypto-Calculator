@@ -2,6 +2,7 @@ import type { NextPage } from 'next'
 import { useEffect } from 'react'
 import Head from 'next/head'
 import Image from 'next/image'
+import Header from '../components/Header'
 import axios from 'axios'
 
 const Home: NextPage = () => {
@@ -15,18 +16,28 @@ const Home: NextPage = () => {
          'X-CoinAPI-Key': process.env.API_KEY!
         }
       });
-      console.log(res);
+      // console.log(res);
     }
+    
     fetchData();
-
+    console.log(fetchWithExchangeId('ECB'))
   })
 
+  // fetches a details of exchange with given id
+  const fetchWithExchangeId = async (id: string) => {
+    const res = await axios.get(process.env.BASE_API+'/exchanges/'+id,{
+      headers: {
+        'X-CoinAPI-Key': process.env.API_KEY!
+      }
+    })
+    return res;
+  }
 
 
   return (
-    <h1 className="text-3xl font-bold underline text-red-400">
-      Crypto Exchange!
-    </h1>
+    <>
+      <Header/>
+    </>
   )
 }
 
