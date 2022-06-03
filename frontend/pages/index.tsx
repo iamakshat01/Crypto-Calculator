@@ -2,7 +2,10 @@ import type { NextPage } from 'next'
 import { useEffect } from 'react'
 import Head from 'next/head'
 import Image from 'next/image'
+
 import Header from '../components/Header'
+import Main from '../components/Main'
+
 import axios from 'axios'
 
 const Home: NextPage = () => {
@@ -21,9 +24,9 @@ const Home: NextPage = () => {
     
     fetchData();
     console.log(fetchWithExchangeId('ECB'))
-  })
+  }, [])
 
-  // fetches a details of exchange with given id
+  // fetches the details of exchange with given id
   const fetchWithExchangeId = async (id: string) => {
     const res = await axios.get(process.env.BASE_API+'/exchanges/'+id,{
       headers: {
@@ -37,6 +40,7 @@ const Home: NextPage = () => {
   return (
     <>
       <Header/>
+      <Main />
     </>
   )
 }
