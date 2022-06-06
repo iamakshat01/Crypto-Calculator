@@ -2,9 +2,9 @@ import type { NextPage } from 'next'
 import React, { useEffect, useState } from 'react'
 import Head from 'next/head'
 import Image from 'next/image'
-
 import Header from '../components/Header'
 import Main from '../components/Main'
+
 //Added dataType for api call
 import { dataType } from '../data/types'
 
@@ -16,31 +16,20 @@ const Home: NextPage = () => {
   const [nightMode, setMode] = useState<boolean>(false)
 
   useEffect(() => {
-    
     // fetches complete list of available exchanges and returns it in the form of array
     const fetchData = async () => {
-      const res = await axios.get(process.env.BASE_API+'/exchanges/', {
-        headers: {
-        'X-CoinAPI-Key': process.env.API_KEY!
+      const res = await axios.get(process.env.BASE_API+'coins/markets?vs_currency=usd&category=solana-ecosystem&order=market_cap_desc&per_page=100&page=1&sparkline=false');
+      res.data = res.data.map((exchange: dataType)=> {
+        return {
+          id: exchange.id,
+          name: exchange.name
         }
-      });
-      console.log(res);
+      })
       setExchData(res.data)
+      // console.log(res.data);
     }
     fetchData();
-    console.log(fetchWithExchangeId('ECB'))
   }, [])
-
-  // fetches the details of exchange with given id
-  const fetchWithExchangeId = async (id: string) => {
-    const res = await axios.get(process.env.BASE_API+'/exchanges/'+id,{
-      headers: {
-        'X-CoinAPI-Key': process.env.API_KEY!
-      }
-    })
-    return res;
-  }
-
 
   return (
     <>
