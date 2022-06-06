@@ -64,7 +64,7 @@ const Main: React.FC<Props> = ({exchData}) => {
     }
 
   return (
-    <div className='w-full h-screen flex justify-center items-center bg-slate-200 dark:bg-zinc-800'>
+    <div className='w-full h-screen flex justify-center items-center bg-slate-200 dark:bg-zinc-800 '>
         <div className='container w-8/12 h-4/6 bg-base-100 flex flex-col justify-start items-center space-y-10 px-5 shadow-lg shadow-indigo-500 rounded-3xl dark:bg-zinc-900'>
             
             <div className='flex w-full mt-10 max-h-15'>
@@ -89,7 +89,7 @@ const Main: React.FC<Props> = ({exchData}) => {
             
 
             {/* Display exchanged value here */}
-            {!alert && result && <span className="text-xl text-purple-700 dark:text-purple-200">
+            {!alert && result && <span className="text-xl text-purple-700 dark:text-purple-200 text-center">
 
                 <span> Result : {inputVal} {exchange1?.label} &#8776; </span>
                 <span className="font-bold"> {result} </span>

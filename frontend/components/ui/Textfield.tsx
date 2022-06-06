@@ -10,7 +10,7 @@ const Textfield: React.FC<Props> = ({setInputVal, setAlert, alert}) => {
 
     const numValidator = (text: string) => {
         let regex = /^[0-9]*\.?[0-9]*$/
-        console.log(text)
+        // console.log(text)
         return text.match(regex)
     }
 
