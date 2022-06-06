@@ -19,23 +19,16 @@ const Header:React.FC<HeaderProps> = ({nightMode, setMode}) => {
     }
 
     //LIGHT MODE/DARK MODE
-        // On page load determines user preference for light or dark mode
+        //Adds light or dark setting to classList
         useEffect(() => {
-            if (localStorage.theme === 'dark' || (!('theme' in localStorage) &&  window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+            if(nightMode){
                 document.documentElement.classList.add('dark')
-            } else {
+            } else if (!nightMode) {
                 document.documentElement.classList.remove('dark')
             }
         }, [nightMode])
+        
 
-        //Changes preference when light or dark mode toggle is used
-        useEffect(() => {
-            if(nightMode){
-                localStorage.theme = 'light'
-            } else if (!nightMode) {
-                localStorage.theme = 'dark'
-            }
-        }, [nightMode])
 
 
     return (
