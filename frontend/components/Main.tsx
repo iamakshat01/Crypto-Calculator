@@ -7,7 +7,7 @@ import { dataType } from '../data/types'
 
 
 type Props = {
-    exchData: any
+    exchData: any,
 };
 
 const Main: React.FC<Props> = ({exchData}) => {
@@ -25,19 +25,20 @@ const Main: React.FC<Props> = ({exchData}) => {
         }
     }, [alert])
 
+
   return (
-    <div className='w-full h-screen flex justify-center items-center'>
-        <div className='container w-8/12 h-4/6 bg-base-100 shadow-xl flex flex-col justify-start items-center space-y-10 px-5 shadow-indigo-300 rounded-3xl'>
-            <div className='flex w-full mt-40 max-h-15'>
+    <div className='w-full h-screen flex justify-center items-center bg-slate-200 dark:bg-zinc-800'>
+        <div className='container w-8/12 h-4/6 bg-base-100 flex flex-col justify-start items-center space-y-10 px-5 shadow-lg shadow-indigo-500 rounded-3xl dark:bg-zinc-900'>
+            <div className='flex w-full mt-10 max-h-15'>
                 {alert && <Alert />}
             </div>
             <div className='flex w-full justify-center'>
                 <Textfield setInputVal={setInputVal} alert={alert} setAlert={setAlert}/>  
             </div>
             <div className='flex flex-col w-full space-y-3 justify-center items-center md:flex-row md:space-x-3 md:space-y-0 '>
-                <SelectDropdown exchData={exchData} />
-                <span className='bold'> To: </span>
-                <SelectDropdown exchData={exchData} />
+                <SelectDropdown data={exchData} fillerText='Select currency'/>
+                <span className='font-semibold dark:text-white '> To: </span>
+                <SelectDropdown data={exchData} fillerText='Select currency'/>
             </div>
             
             {/* Insert switch BTN here */}

@@ -13,6 +13,7 @@ import axios from 'axios'
 
 const Home: NextPage = () => {
   const [exchData, setExchData] =  useState<Array<dataType>>([])
+  const [nightMode, setMode] = useState<boolean>(false)
 
   useEffect(() => {
     
@@ -43,7 +44,7 @@ const Home: NextPage = () => {
 
   return (
     <>
-      <Header/>
+      <Header setMode={setMode} nightMode={nightMode}/>
       <Main exchData={exchData}/>
     </>
   )
