@@ -15,3 +15,8 @@ export interface dataType {
     }
 }
 
+export type exchangeInput = {
+    value:'string',
+    label:'string'
+}
+

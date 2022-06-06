@@ -2,9 +2,9 @@ import type { NextPage } from 'next'
 import React, { useEffect, useState } from 'react'
 import Head from 'next/head'
 import Image from 'next/image'
-
 import Header from '../components/Header'
 import Main from '../components/Main'
+
 //Added dataType for api call
 import { dataType } from '../data/types'
 
@@ -19,12 +19,13 @@ const Home: NextPage = () => {
     
     // fetches complete list of available exchanges and returns it in the form of array
     const fetchData = async () => {
-      const res = await axios.get(process.env.BASE_API+'/exchanges/', {
+      const res = await axios.get(process.env.BASE_API+'/assets/', {
         headers: {
         'X-CoinAPI-Key': process.env.API_KEY!
         }
       });
-      console.log(res);
+      // console.log(res);
+      res.data = res.data.slice(0, 300)
       setExchData(res.data)
     }
     fetchData();

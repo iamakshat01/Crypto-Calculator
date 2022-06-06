@@ -1,27 +1,42 @@
-import React, {useEffect} from 'react'
-// import { dataType } from '../../data/types'
+import React, { Component, Fragment } from 'react';
+import Select from 'react-select';
+import { dataType,exchangeInput } from '../../data/types'
 
 interface DropdownProps{
   data: any,
   fillerText: string,
+  onChange: React.Dispatch<React.SetStateAction<exchangeInput>>
 }
 
-const SelectDropdown = (props: DropdownProps) => {
 
-  //Check to see if data is being passed down properly
-  useEffect(() => {
-    console.log(props.data)
-  }, [props.data])
+const SelectDropdown = (props:DropdownProps)  => {
 
-  return (
-    <select className="select select-bordered w-full max-w-xs flex-initial">
-        <option disabled selected>{props.fillerText}</option>
-        {/*Conditional to prevent .map before data is ready  */}
-        {props.data[1] && props.data.map((exchange: any) => {
-            <option>{exchange.name}</option>
-        })}
-    </select>
-  )
+    return (
+      <div className="w-full max-w-xs flex-initial">
+        <Select
+          className="basic-single"
+          classNamePrefix="select"
+          defaultValue={props.fillerText}
+          isClearable={true}
+          isSearchable={true}
+          name="color"
+          options={props.data}
+          onChange={props.onChange}
+        />
+
+        <div
+          style={{
+            color: 'hsl(0, 0%, 40%)',
+            display: 'inline-block',
+            fontSize: 12,
+            fontStyle: 'italic',
+            marginTop: '1em',
+          }}
+        >
+        </div>
+      </div>
+    );
 }
+
 
 export default SelectDropdown
