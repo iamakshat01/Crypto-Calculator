@@ -57,6 +57,12 @@ const Main: React.FC<Props> = ({exchData}) => {
         }
     })
 
+    const handleReverse = () => {
+        const temp={...exchange1} as exchangeInput;
+        setExchange1(exchange2);
+        setExchange2(temp);
+    }
+
   return (
     <div className='w-full h-screen flex justify-center items-center bg-slate-200 dark:bg-zinc-800'>
         <div className='container w-8/12 h-4/6 bg-base-100 flex flex-col justify-start items-center space-y-10 px-5 shadow-lg shadow-indigo-500 rounded-3xl dark:bg-zinc-900'>
@@ -70,12 +76,17 @@ const Main: React.FC<Props> = ({exchData}) => {
             </div>
 
             <div className='flex flex-col w-full space-y-3 justify-center items-center md:flex-row md:space-x-3 md:space-y-0 '>
-                <SelectDropdown  onChange={setExchange1} data={options} fillerText='Select currency'/>
-                <span className='font-semibold dark:text-white'> To: </span>
-                <SelectDropdown  onChange={setExchange2} data={options} fillerText='Select currency'/>
+                <SelectDropdown  parent={exchange1} onChange={setExchange1} data={options} fillerText='Select currency'/>
+                {/* Insert switch BTN here */}
+                <span onClick={handleReverse} className="bg-purple-700 rounded-md">
+                    <svg xmlns="http://www.w3.org/2000/svg" className="h-9 w-9 p-2 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                        <path strokeLinecap="round" strokeLinejoin="round" d="M8 7h12m0 0l-4-4m4 4l-4 4m0 6H4m0 0l4 4m-4-4l4-4" />
+                    </svg>
+                </span>
+                {/* <span className='font-semibold dark:text-white'> To: </span> */}
+                <SelectDropdown  parent={exchange2} onChange={setExchange2} data={options} fillerText='Select currency'/>
             </div>
             
-            {/* Insert switch BTN here */}
 
             {/* Display exchanged value here */}
             {!alert && result && <span className="text-xl text-purple-700 dark:text-purple-200">

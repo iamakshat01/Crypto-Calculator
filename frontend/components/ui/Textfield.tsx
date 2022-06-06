@@ -16,7 +16,7 @@ const Textfield: React.FC<Props> = ({setInputVal, setAlert, alert}) => {
 
   return (
     <div className="form-control w-full max-w-md">
-        <input type='text' placeholder="Insert currency amount here" className="input input-bordered input-primary w-full" 
+        <input type='text' placeholder="Insert currency amount here" className="input input-bordered input-primary w-full text-base" 
         onChange={(e) => {
             //Shows alert if NaN, will NOT update setInputVal state if NaN
             numValidator(e.target.value) ? setAlert(false) : setAlert(true)
