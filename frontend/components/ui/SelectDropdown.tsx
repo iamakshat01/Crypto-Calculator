@@ -1,6 +1,6 @@
-import React, { Component, Fragment } from 'react';
+import React from 'react';
 import Select from 'react-select';
-import { dataType,exchangeInput } from '../../data/types'
+import { exchangeInput } from '../../data/types'
 
 interface DropdownProps{
   data: any,
