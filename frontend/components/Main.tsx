@@ -1,23 +1,23 @@
-import React from 'react'
-import SelectDropdown from './SelectDropdown'
+import React, {useState} from 'react'
+import SelectDropdown from './ui/SelectDropdown'
+import Textfield from './ui/Textfield';
 import { dataType } from '../data/types'
 
-const fillerData: Array<string> = [
-    "Bitcoin",
-    "Ethereum",
-    "Solana",
-    "Polygon",
-    "DogeCoin"
-]
+type Props = {
+    exchData: any
+};
 
-const Main = (exchData: any) => {
+const Main: React.FC<Props> = ({exchData}) => {
+    const [inputVal, setInputVal] = useState<number>(0)
+
   return (
     <div className='w-full h-screen flex justify-center items-center'>
-        <div className='container w-8/12 h-4/6 bg-base-100 shadow-xl flex justify-center items-center'>
+        <div className='container w-8/12 h-4/6 bg-base-100 shadow-xl flex justify-center items-center space-x-4 shadow-indigo-600 rounded-3xl'>
             <div className=''>
-                <SelectDropdown exchData={exchData} />
+                <Textfield setInputVal={setInputVal}/>  
             </div>
-            <div className=''>
+            <div className='flex w-100 '>
+                <SelectDropdown exchData={exchData} />
                 <SelectDropdown exchData={exchData} />
             </div>
         </div>
