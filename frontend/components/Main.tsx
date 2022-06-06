@@ -3,7 +3,7 @@ import SelectDropdown from './ui/SelectDropdown'
 import Textfield from './ui/Textfield';
 import Alert from './ui/Alert';
 import { dataType, exchangeInput } from '../data/types'
-
+import axios from 'axios'
 
 type Props = {
     exchData: dataType[],
@@ -20,6 +20,8 @@ const Main: React.FC<Props> = ({exchData}) => {
     const [exchange1,setExchange1] = useState<exchangeInput>();
     // State for exchange input 2
     const [exchange2,setExchange2] = useState<exchangeInput>();
+    // State for storing result
+    const [result, setResult] = useState<string>();
 
     //Sets timer on Alert component, disappears after 2 seconds
     useEffect(() => {
@@ -29,6 +31,24 @@ const Main: React.FC<Props> = ({exchData}) => {
             }, 4000);
         }
     }, [alert])
+
+
+    useEffect(() => {
+        
+        const fetchData = async () => {
+            const res1 = await axios.get(process.env.BASE_API+`simple/price?ids=${exchange1?.value}&vs_currencies=usd`);
+            const res2 = await axios.get(process.env.BASE_API+`simple/price?ids=${exchange2?.value}&vs_currencies=usd`);
+            const price1 = res1["data"][exchange1!.value]["usd"]
+            const price2 = res2["data"][exchange2!.value]["usd"]
+            let res = (price1/price2)*(inputVal)
+            // console.log(`Result: ${inputVal} : ${res}`);
+            setResult(res.toFixed(2));
+        }
+
+        if(exchange1?.value && exchange2?.value)
+            fetchData();
+
+    },[exchange2,exchange1,inputVal])
     
     const options = exchData.map((exchange: dataType)=>{
         return {
@@ -40,22 +60,31 @@ const Main: React.FC<Props> = ({exchData}) => {
   return (
     <div className='w-full h-screen flex justify-center items-center bg-slate-200 dark:bg-zinc-800'>
         <div className='container w-8/12 h-4/6 bg-base-100 flex flex-col justify-start items-center space-y-10 px-5 shadow-lg shadow-indigo-500 rounded-3xl dark:bg-zinc-900'>
+            
             <div className='flex w-full mt-10 max-h-15'>
                 {alert && <Alert />}
             </div>
+
             <div className='flex w-full justify-center'>
                 <Textfield setInputVal={setInputVal} alert={alert} setAlert={setAlert}/>  
             </div>
+
             <div className='flex flex-col w-full space-y-3 justify-center items-center md:flex-row md:space-x-3 md:space-y-0 '>
                 <SelectDropdown  onChange={setExchange1} data={options} fillerText='Select currency'/>
-                <span className='font-semibold dark:text-white p-2'> To: </span>
+                <span className='font-semibold dark:text-white'> To: </span>
                 <SelectDropdown  onChange={setExchange2} data={options} fillerText='Select currency'/>
             </div>
             
             {/* Insert switch BTN here */}
 
             {/* Display exchanged value here */}
-            {!alert && <></>}
+            {!alert && result && <span className="text-xl text-purple-700 dark:text-purple-200">
+
+                <span> Result : {inputVal} {exchange1?.label} &#8776; </span>
+                <span className="font-bold"> {result} </span>
+                <span> {exchange2?.label}</span>
+
+            </span>}
 
         </div>
     </div>
