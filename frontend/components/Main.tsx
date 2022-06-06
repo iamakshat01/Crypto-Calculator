@@ -6,7 +6,7 @@ import { dataType, exchangeInput } from '../data/types'
 
 
 type Props = {
-    exchData: any,
+    exchData: dataType[],
 };
 
 
@@ -30,26 +30,13 @@ const Main: React.FC<Props> = ({exchData}) => {
         }
     }, [alert])
     
-    // const options = exchData.map((exchange: any)=>{
-    //     return {
-    //         value:exchange.assest_id,
-    //         label:exchange.name
-    //     }
-    // })
-
-    const options = [
-        {
-            value:'BTC',
-            label: 'BITCOIN'
-        },
-        {
-            value:'SOL',
-            label: 'SOLANA'
+    const options = exchData.map((exchange: dataType)=>{
+        return {
+            value:exchange.id,
+            label:exchange.name
         }
-    ]
-    
+    })
 
- 
   return (
     <div className='w-full h-screen flex justify-center items-center bg-slate-200 dark:bg-zinc-800'>
         <div className='container w-8/12 h-4/6 bg-base-100 flex flex-col justify-start items-center space-y-10 px-5 shadow-lg shadow-indigo-500 rounded-3xl dark:bg-zinc-900'>
