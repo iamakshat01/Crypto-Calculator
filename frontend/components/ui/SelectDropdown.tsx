@@ -5,7 +5,7 @@ const SelectDropdown = (exchData: any) => {
 
   //Check to see if data is being passed down properly
   useEffect(() => {
-    console.log(exchData.exchData)
+    console.log(exchData)
   }, [exchData])
 
   return (
